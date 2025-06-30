@@ -61,8 +61,7 @@ keypad.addEventListener("click", event => {
         case(BACKSPACE):
             break;
         case(DIGIT):
-            display.textContent += key.textContent;
-            displayContent += key.textContent;
+            updateDisplayContent(key.textContent);
             break;
         case(OPERATOR):
             break;
@@ -70,3 +69,8 @@ keypad.addEventListener("click", event => {
             break;         
     }
 });
+
+function updateDisplayContent(digit) {
+    displayContent += digit;
+    display.textContent = displayContent;
+}
