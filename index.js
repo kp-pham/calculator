@@ -1,11 +1,11 @@
 const ADDITION_OPERATOR = "+";
 const SUBTRACTION_OPERATOR = "-";
-const MULTIPLICATION_OPERATOR = "*";
-const DIVISION_OPERATOR = "/";
+const MULTIPLICATION_OPERATOR = "x";
+const DIVISION_OPERATOR = "÷";
 
-let leftOperand;
-let operator;
-let rightOperand;
+let leftOperand = null;
+let operator = null;
+let rightOperand = null;
 
 function operate(leftOperand, operator, rightOperand) {
     switch(operator) {
@@ -65,6 +65,9 @@ keypad.addEventListener("click", event => {
             updateDisplayContent(key.textContent);
             break;
         case(OPERATOR):
+            updateLeftOperand(displayContent);
+            clearDisplayContent();
+            updateOperator(key.textContent);    
             break;
         case(PLUS_MINUS):
             break;
@@ -75,5 +78,18 @@ keypad.addEventListener("click", event => {
 
 function updateDisplayContent(digit) {
     displayContent += digit;
+    display.textContent = displayContent;
+}
+
+function updateLeftOperand(value) {
+    leftOperand = value;
+}
+
+function updateOperator(operation) {
+    operator = operation;
+}
+
+function clearDisplayContent() {
+    displayContent = "";
     display.textContent = displayContent;
 }
