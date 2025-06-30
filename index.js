@@ -63,10 +63,10 @@ keypad.addEventListener("click", event => {
         case(BACKSPACE):
             break;
         case(DIGIT):
-            updateDisplayContent(key.textContent);
+            displayDigit(key.textContent);
             break;
         case(OPERATOR):
-            updateLeftOperand(displayContent);
+            updateLeftOperand();
             clearDisplayContent();
             updateOperator(key.textContent);    
             break;
@@ -77,12 +77,16 @@ keypad.addEventListener("click", event => {
     }
 });
 
-function updateDisplayContent(digit) {
-    displayContent += digit;
+function displayDigit(digit) {
+    updateDisplayContent(digit);
+}
+
+function updateDisplayContent(content) {
+    displayContent += content;
     display.textContent = displayContent;
 }
 
-function updateLeftOperand(displayContent) {
+function updateLeftOperand() {
     leftOperand = updateOperand(displayContent);
 }
 
