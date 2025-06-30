@@ -5,6 +5,16 @@ body {
 }
 
 .calculator {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 20%;
+    aspect-ratio: 1 / 1.5;
+    background-color: #212639;
+}
+
+.display {
     flex-basis: 30%;
-    aspect-ratio: 1 / 2;
+    color: #F9FAF8;
+    font-size: 36px;
+    text-align: right;
 }
