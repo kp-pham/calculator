@@ -25,7 +25,8 @@ body {
 }
 
 button {
-    flex-basis: 25%;
+    margin: 2px;
+    flex-basis: calc(25% - 4px);
 }
 
 .digit {
@@ -42,6 +43,6 @@ button {
 }
 
 .evaluate {
-    color: #F9FAF8;
+    color: #2D3245;
     background-color: #A8C8FB;
 }
