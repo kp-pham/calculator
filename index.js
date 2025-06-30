@@ -61,6 +61,7 @@ keypad.addEventListener("click", event => {
         case(CLEAR):
             break;
         case(BACKSPACE):
+            removeLastCharacter();
             break;
         case(DIGIT):
             displayDigit(key.textContent);
@@ -80,6 +81,11 @@ keypad.addEventListener("click", event => {
             break;         
     }
 });
+
+function removeLastCharacter() {    
+    displayContent = displayContent.slice(0, -1);
+    display.textContent = displayContent;
+}
 
 function displayDigit(digit) {
     updateDisplayContent(digit);
@@ -110,7 +116,6 @@ function clearDisplayContent() {
     displayContent = "";
     display.textContent = displayContent;
 }
-
 
 function negate() {
     displayContent = isNegative(displayContent) ? displayContent.slice(1) : "-" + displayContent;
