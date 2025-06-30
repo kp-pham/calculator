@@ -30,5 +30,18 @@ button {
 
 .digit {
     color: #F9FAF8;
-    background-color: #353a4e;
+    background-color: #353A4E;
+}
+
+.clear-entry,
+.clear,
+.backspace,
+.operator {
+    color: #F9FAF8;
+    background-color: #2D3245;
+}
+
+.evaluate {
+    color: #F9FAF8;
+    background-color: #A8C8FB;
 }
