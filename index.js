@@ -37,3 +37,36 @@ function divide(a, b) {
     
     return a / b;
 }
+
+const CLEAR_ENTRY = "clear-entry";
+const CLEAR = "clear";
+const BACKSPACE = "backspace";
+const DIGIT= "digit";
+const OPERATOR = "operator";
+const EQUAL_SIGN = "equal-sign";
+
+const keypad = document.querySelector(".buttons");
+const display = document.querySelector(".display");
+let displayContent;
+
+keypad.addEventListener("click", event => {
+    const key = event.target;
+    const keyType = event.target.className;
+
+    switch(keyType) {
+        case(CLEAR_ENTRY):
+            break;
+        case(CLEAR):
+            break;
+        case(BACKSPACE):
+            break;
+        case(DIGIT):
+            display.textContent += key.textContent;
+            displayContent += key.textContent;
+            break;
+        case(OPERATOR):
+            break;
+        case(EQUAL_SIGN):
+            break;         
+    }
+});
