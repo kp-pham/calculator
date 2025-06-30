@@ -3,9 +3,9 @@ const SUBTRACTION_OPERATOR = "-";
 const MULTIPLICATION_OPERATOR = "x";
 const DIVISION_OPERATOR = "÷";
 
-let leftOperand = null;
-let operator = null;
-let rightOperand = null;
+let leftOperand ;
+let operator;
+let rightOperand;
 
 function operate(leftOperand, operator, rightOperand) {
     switch(operator) {
@@ -44,6 +44,7 @@ const BACKSPACE = "backspace";
 const DIGIT= "digit";
 const OPERATOR = "operator";
 const PLUS_MINUS = "+/-";
+const DECIMAL_POINT = ".";
 const EQUAL_SIGN = "equal-sign";
 
 const keypad = document.querySelector(".buttons");
@@ -81,8 +82,16 @@ function updateDisplayContent(digit) {
     display.textContent = displayContent;
 }
 
-function updateLeftOperand(value) {
-    leftOperand = value;
+function updateLeftOperand(displayContent) {
+    leftOperand = updateOperand(displayContent);
+}
+
+function updateOperand(displayContent) {
+    return isDecimal(displayContent) ? parseFloat(displayContent) : parseInt(displayContent);
+}
+
+function isDecimal(displayContent) {
+    return displayContent.includes(DECIMAL_POINT);
 }
 
 function updateOperator(operation) {

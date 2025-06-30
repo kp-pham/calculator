@@ -39,7 +39,8 @@ button {
 }
 
 .digit,
-.plus-minus {
+.plus-minus,
+.decimal-point {
     color: #F9FAF8;
     background-color: #353A4E;
     font-size: 24px;
