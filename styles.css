@@ -18,3 +18,12 @@ body {
     font-size: 36px;
     text-align: right;
 }
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+button {
+    flex-basis: 25%;
+}
