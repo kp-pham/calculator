@@ -3,7 +3,7 @@ const SUBTRACTION_OPERATOR = "-";
 const MULTIPLICATION_OPERATOR = "x";
 const DIVISION_OPERATOR = "÷";
 
-let leftOperand ;
+let leftOperand;
 let operator;
 let rightOperand;
 
@@ -43,7 +43,7 @@ const CLEAR = "clear";
 const BACKSPACE = "backspace";
 const DIGIT= "digit";
 const OPERATOR = "operator";
-const PLUS_MINUS = "+/-";
+const PLUS_MINUS = "plus-minus";
 const DECIMAL_POINT = "decimal-point";
 const EQUAL_SIGN = "equal-sign";
 
@@ -71,6 +71,7 @@ keypad.addEventListener("click", event => {
             updateOperator(key.textContent);    
             break;
         case(PLUS_MINUS):
+            negate();
             break;
         case(DECIMAL_POINT):
             displayDecimal(key.textContent);
@@ -108,6 +109,16 @@ function updateOperator(operation) {
 function clearDisplayContent() {
     displayContent = "";
     display.textContent = displayContent;
+}
+
+
+function negate() {
+    displayContent = isNegative(displayContent) ? displayContent.slice(1) : "-" + displayContent;
+    display.textContent = displayContent;
+}
+
+function isNegative() {
+    return displayContent.includes("-");
 }
 
 function displayDecimal(decimalPoint) {
