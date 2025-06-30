@@ -27,6 +27,8 @@ body {
 button {
     margin: 2px;
     flex-basis: calc(25% - 4px);
+    border-radius: 4px;
+    aspect-ratio: 1 / 1;
 }
 
 .digit {
