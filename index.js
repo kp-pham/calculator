@@ -43,11 +43,12 @@ const CLEAR = "clear";
 const BACKSPACE = "backspace";
 const DIGIT= "digit";
 const OPERATOR = "operator";
+const PLUS_MINUS = "+/-";
 const EQUAL_SIGN = "equal-sign";
 
 const keypad = document.querySelector(".buttons");
 const display = document.querySelector(".display");
-let displayContent;
+let displayContent = "";
 
 keypad.addEventListener("click", event => {
     const key = event.target;
@@ -64,6 +65,8 @@ keypad.addEventListener("click", event => {
             updateDisplayContent(key.textContent);
             break;
         case(OPERATOR):
+            break;
+        case(PLUS_MINUS):
             break;
         case(EQUAL_SIGN):
             break;         

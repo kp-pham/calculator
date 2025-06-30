@@ -38,7 +38,8 @@ button {
     aspect-ratio: 1 / 1;
 }
 
-.digit {
+.digit,
+.plus-minus {
     color: #F9FAF8;
     background-color: #353A4E;
     font-size: 24px;
