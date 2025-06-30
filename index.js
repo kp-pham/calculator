@@ -44,7 +44,7 @@ const BACKSPACE = "backspace";
 const DIGIT= "digit";
 const OPERATOR = "operator";
 const PLUS_MINUS = "+/-";
-const DECIMAL_POINT = ".";
+const DECIMAL_POINT = "decimal-point";
 const EQUAL_SIGN = "equal-sign";
 
 const keypad = document.querySelector(".buttons");
@@ -72,6 +72,9 @@ keypad.addEventListener("click", event => {
             break;
         case(PLUS_MINUS):
             break;
+        case(DECIMAL_POINT):
+            displayDecimal(key.textContent);
+            break;
         case(EQUAL_SIGN):
             break;         
     }
@@ -95,7 +98,7 @@ function updateOperand(displayContent) {
 }
 
 function isDecimal(displayContent) {
-    return displayContent.includes(DECIMAL_POINT);
+    return displayContent.includes(".");
 }
 
 function updateOperator(operation) {
@@ -105,4 +108,9 @@ function updateOperator(operation) {
 function clearDisplayContent() {
     displayContent = "";
     display.textContent = displayContent;
+}
+
+function displayDecimal(decimalPoint) {
+    if (!isDecimal(displayContent))
+        updateDisplayContent(decimalPoint);
 }
