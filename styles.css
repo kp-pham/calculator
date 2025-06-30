@@ -27,3 +27,8 @@ body {
 button {
     flex-basis: 25%;
 }
+
+.digit {
+    color: #F9FAF8;
+    background-color: #353a4e;
+}
