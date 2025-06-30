@@ -41,6 +41,7 @@ button {
 .digit {
     color: #F9FAF8;
     background-color: #353A4E;
+    font-size: 24px;
 }
 
 .clear-entry,
@@ -51,7 +52,18 @@ button {
     background-color: #2D3245;
 }
 
+.clear-entry,
+.clear,
+.backspace {
+    font-size: 16px;
+}
+
+.operator {
+    font-size: 24px;
+}
+
 .evaluate {
     color: #2D3245;
     background-color: #A8C8FB;
+    font-size: 24px;
 }
