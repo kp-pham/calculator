@@ -155,11 +155,19 @@ function displayDigit(digit) {
 }
 
 function updateDisplayContent(content) {
-    if (isNonzero())
-        display.textContent = displayContent += content;
+    if (!reachedDisplayLength()) {
+        if (isNonzero())
+            display.textContent = displayContent += content;
 
-    else
-        display.textContent = displayContent = content;
+        else
+            display.textContent = displayContent = content;
+    }
+}
+
+const MAXIMUM_DIGITS_DISPLAYED = 14;
+
+function reachedDisplayLength() {
+    return displayContent.length === MAXIMUM_DIGITS_DISPLAYED;
 }
 
 function updateOperator(symbol) {    
