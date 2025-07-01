@@ -72,6 +72,7 @@ keypad.addEventListener("click", event => {
             removeLastCharacter();
             break;
         case(DIGIT):
+            clearOnError();
             clearOnNextPress();
             displayDigit(key.textContent);
             break;
