@@ -39,6 +39,7 @@ function divide(a, b) {
 }
 
 const DEFAULT_DISPLAY_CONTENT = "0";
+const MAXIMUM_DECIMAL_PLACE = 13;
 
 const CLEAR_ENTRY = "clear-entry";
 const CLEAR = "clear";
@@ -83,7 +84,7 @@ keypad.addEventListener("click", event => {
             convertToDecimal();
             break;
         case(EQUAL_SIGN):
-            evaluate();
+            displayAnswer(evaluate());
             break;         
     }
 });
@@ -179,12 +180,21 @@ function convertToDecimal() {
 
 function evaluate() {
     updateRightOperand();
-    const result = operate(leftOperand, operator, rightOperand);
-
-    displayContent = result.toFixed(9);
-    display.textContent = displayContent;
+    return operate(leftOperand, operator, rightOperand);
 }
 
 function updateRightOperand() {
     rightOperand = updateOperand(displayContent);
+}
+
+function displayAnswer(answer) {
+    if (isInteger(answer))
+        display.textContent = displayContent = answer.toString();
+
+    else
+        display.textContent = displayContent = parseFloat(answer.toFixed(MAXIMUM_DECIMAL_PLACE));
+}
+
+function isInteger(number) {
+    return Math.floor(number) === number;
 }
