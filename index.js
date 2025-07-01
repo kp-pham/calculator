@@ -50,6 +50,7 @@ const EQUAL_SIGN = "equal-sign";
 const keypad = document.querySelector(".buttons");
 const display = document.querySelector(".display");
 let displayContent = "";
+let pressedOperatorKey = false;
 
 keypad.addEventListener("click", event => {
     const key = event.target;
@@ -77,6 +78,7 @@ keypad.addEventListener("click", event => {
             displayDecimal(key.textContent);
             break;
         case(EQUAL_SIGN):
+            evaluate();
             break;         
     }
 });
@@ -87,18 +89,15 @@ function removeLastCharacter() {
 }
 
 function clearAfterOperator() {
-    if (pressedOperatorKey()) {
+    if (pressedOperatorKey) {
         updateLeftOperand();
         clearDisplayContent();
+        pressedOperatorKey = false;
     }
 }
 
 function updateLeftOperand() {
     leftOperand = updateOperand(displayContent);
-}
-
-function pressedOperatorKey() {
-    return operator != "";
 }
 
 function updateOperand(displayContent) {
@@ -120,6 +119,7 @@ function updateDisplayContent(content) {
 
 function updateOperator(operation) {
     operator = operation;
+    pressedOperatorKey = true;
 }
 
 function clearDisplayContent() {
@@ -139,4 +139,16 @@ function isNegative() {
 function displayDecimal(decimalPoint) {
     if (!isDecimal(displayContent))
         updateDisplayContent(decimalPoint);
+}
+
+function evaluate() {
+    updateRightOperand();
+    const result = operate(leftOperand, operator, rightOperand);
+
+    displayContent = result.toString();
+    display.textContent = displayContent;
+}
+
+function updateRightOperand() {
+    rightOperand = updateOperand(displayContent);
 }
