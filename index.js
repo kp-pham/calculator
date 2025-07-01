@@ -84,7 +84,7 @@ keypad.addEventListener("click", event => {
             convertToDecimal();
             break;
         case(EQUAL_SIGN):
-            displayAnswer(evaluate());
+            displayResult(evaluate());
             break;         
     }
 });
@@ -187,12 +187,19 @@ function updateRightOperand() {
     rightOperand = updateOperand(displayContent);
 }
 
-function displayAnswer(answer) {
-    if (isInteger(answer))
-        display.textContent = displayContent = answer.toString();
+function displayResult(result) {
+    if (isErrorMessage(result))
+        display.textContent = displayContent = result;
+
+    else if (isInteger(result))
+        display.textContent = displayContent = result.toString();
 
     else
-        display.textContent = displayContent = parseFloat(answer.toFixed(MAXIMUM_DECIMAL_PLACE));
+        display.textContent = displayContent = parseFloat(result.toFixed(MAXIMUM_DECIMAL_PLACE));
+}
+
+function isErrorMessage(result) {
+    return typeof(result) === "string";
 }
 
 function isInteger(number) {
