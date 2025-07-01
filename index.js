@@ -38,6 +38,9 @@ function divide(a, b) {
     return a / b;
 }
 
+const DEFAULT_DISPLAY_CONTENT = "";
+const DEFAULT_TEXT_CONTENT = "0";
+
 const CLEAR_ENTRY = "clear-entry";
 const CLEAR = "clear";
 const BACKSPACE = "backspace";
@@ -103,8 +106,8 @@ function clearAll() {
 }
 
 function clearDisplayContent() {
-    displayContent = "0";
-    display.textContent = displayContent;
+    displayContent = DEFAULT_DISPLAY_CONTENT;
+    display.textContent = DEFAULT_TEXT_CONTENT;
 }
 
 function removeLastCharacter() {    
