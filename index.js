@@ -38,8 +38,7 @@ function divide(a, b) {
     return a / b;
 }
 
-const DEFAULT_DISPLAY_CONTENT = "";
-const DEFAULT_TEXT_CONTENT = "0";
+const DEFAULT_DISPLAY_CONTENT = "0";
 
 const CLEAR_ENTRY = "clear-entry";
 const CLEAR = "clear";
@@ -106,13 +105,11 @@ function clearAll() {
 }
 
 function clearDisplayContent() {
-    displayContent = DEFAULT_DISPLAY_CONTENT;
-    display.textContent = DEFAULT_TEXT_CONTENT;
+    display.textContent = displayContent = DEFAULT_DISPLAY_CONTENT;
 }
 
 function removeLastCharacter() {    
-    displayContent = displayContent.slice(0, -1);
-    display.textContent = displayContent;
+    display.textContent = displayContent = displayContent.slice(0, -1);
 }
 
 function clearAfterOperator() {
@@ -140,8 +137,11 @@ function displayDigit(digit) {
 }
 
 function updateDisplayContent(content) {
-    displayContent += content;
-    display.textContent = displayContent;
+    if (isNonzero())
+        display.textContent = displayContent += content;
+
+    else
+        display.textContent = displayContent = content;
 }
 
 function updateOperator(operation) {
@@ -163,6 +163,10 @@ function negate() {
 
 function isNegative() {
     return displayContent.includes("-");
+}
+
+function isNonzero() {
+    return displayContent === "0";
 }
 
 function displayDecimal(decimalPoint) {
