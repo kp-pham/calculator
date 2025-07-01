@@ -4,7 +4,7 @@ const MULTIPLICATION_OPERATOR = "x";
 const DIVISION_OPERATOR = "÷";
 
 let leftOperand;
-let operator;
+let operator = "";
 let rightOperand;
 
 function operate(leftOperand, operator, rightOperand) {
@@ -64,11 +64,10 @@ keypad.addEventListener("click", event => {
             removeLastCharacter();
             break;
         case(DIGIT):
+            clearAfterOperator();
             displayDigit(key.textContent);
             break;
         case(OPERATOR):
-            updateLeftOperand();
-            clearDisplayContent();
             updateOperator(key.textContent);    
             break;
         case(PLUS_MINUS):
@@ -87,17 +86,19 @@ function removeLastCharacter() {
     display.textContent = displayContent;
 }
 
-function displayDigit(digit) {
-    updateDisplayContent(digit);
-}
-
-function updateDisplayContent(content) {
-    displayContent += content;
-    display.textContent = displayContent;
+function clearAfterOperator() {
+    if (pressedOperatorKey()) {
+        updateLeftOperand();
+        clearDisplayContent();
+    }
 }
 
 function updateLeftOperand() {
     leftOperand = updateOperand(displayContent);
+}
+
+function pressedOperatorKey() {
+    return operator != "";
 }
 
 function updateOperand(displayContent) {
@@ -106,6 +107,15 @@ function updateOperand(displayContent) {
 
 function isDecimal(displayContent) {
     return displayContent.includes(".");
+}
+
+function displayDigit(digit) {
+    updateDisplayContent(digit);
+}
+
+function updateDisplayContent(content) {
+    displayContent += content;
+    display.textContent = displayContent;
 }
 
 function updateOperator(operation) {
