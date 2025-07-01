@@ -88,6 +88,7 @@ keypad.addEventListener("click", event => {
             convertToDecimal();
             break;
         case(EQUAL_SIGN):
+            clearOnError();
             displayResult(evaluate());
             break;                     
     }
@@ -200,6 +201,11 @@ function isNonzero() {
 function convertToDecimal() {
     if (!isDecimal(displayContent))
         display.textContent = displayContent += ".";
+}
+
+function clearOnError() {
+    if (errorMessage())
+        clearAll();
 }
 
 function evaluate() {
