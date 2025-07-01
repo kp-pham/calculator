@@ -174,7 +174,7 @@ function isNonzero() {
 
 function convertToDecimal() {
     if (!isDecimal(displayContent))
-        updateDisplayContent(".");
+        display.textContent = displayContent += ".";
 }
 
 function evaluate() {
