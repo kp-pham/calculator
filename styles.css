@@ -2,6 +2,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #1f1f1f;
 }
 
 .calculator {
@@ -11,7 +12,7 @@ body {
     aspect-ratio: 1 / 1.5;
     background-color: #212639;
     padding: 5px;
-    min-width: 200px;
+    min-width: 250px;
     border-radius: 4px;
 }
 
@@ -23,7 +24,7 @@ body {
     flex-basis: calc(30% - 20px);
     color: #F9FAF8;
     background-color: #1f1f1f;
-    font-size: 30px;
+    font-size: 28px;
     border: 2px, solid, #383838;
 }
 
