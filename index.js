@@ -51,7 +51,8 @@ const EQUAL_SIGN = "equal-sign";
 
 const keypad = document.querySelector(".buttons");
 const display = document.querySelector(".display");
-let displayContent = "";
+
+let displayContent = DEFAULT_DISPLAY_CONTENT;
 let pressedOperatorKey = false;
 
 keypad.addEventListener("click", event => {
@@ -157,8 +158,10 @@ function unevaluatedPair() {
 }
 
 function negate() {
-    displayContent = isNegative(displayContent) ? displayContent.slice(1) : "-" + displayContent;
-    display.textContent = displayContent;
+    if (isNonzero()) {
+        displayContent = isNegative(displayContent) ? displayContent.slice(1) : "-" + displayContent;
+        display.textContent = displayContent;
+    }
 }
 
 function isNegative() {
@@ -166,7 +169,7 @@ function isNegative() {
 }
 
 function isNonzero() {
-    return displayContent === "0";
+    return displayContent != "0";
 }
 
 function displayDecimal(decimalPoint) {
