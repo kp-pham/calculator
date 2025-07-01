@@ -3,7 +3,7 @@ const SUBTRACTION_OPERATOR = "-";
 const MULTIPLICATION_OPERATOR = "x";
 const DIVISION_OPERATOR = "÷";
 
-let leftOperand = 0
+let leftOperand = 0;
 let operator = "";
 let rightOperand = 0;
 
@@ -58,6 +58,7 @@ keypad.addEventListener("click", event => {
 
     switch(keyType) {
         case(CLEAR_ENTRY):
+            clearPreviousOperand();
             break;
         case(CLEAR):
             clearAll();
@@ -83,6 +84,16 @@ keypad.addEventListener("click", event => {
             break;         
     }
 });
+
+function clearPreviousOperand() {
+    if (rightOperand)
+        leftOperand = 0;
+
+    else
+        rightOperand = 0;
+
+    clearDisplayContent();
+}
 
 function clearAll() {
     resetOperands();
