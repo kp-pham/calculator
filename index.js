@@ -80,7 +80,7 @@ keypad.addEventListener("click", event => {
             negate();
             break;
         case(DECIMAL_POINT):
-            displayDecimal(key.textContent);
+            convertToDecimal();
             break;
         case(EQUAL_SIGN):
             evaluate();
@@ -172,16 +172,16 @@ function isNonzero() {
     return displayContent != "0";
 }
 
-function displayDecimal(decimalPoint) {
+function convertToDecimal() {
     if (!isDecimal(displayContent))
-        updateDisplayContent(decimalPoint);
+        updateDisplayContent(".");
 }
 
 function evaluate() {
     updateRightOperand();
     const result = operate(leftOperand, operator, rightOperand);
 
-    displayContent = result.toString();
+    displayContent = result.toFixed(9);
     display.textContent = displayContent;
 }
 
