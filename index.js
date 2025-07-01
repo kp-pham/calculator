@@ -3,9 +3,9 @@ const SUBTRACTION_OPERATOR = "-";
 const MULTIPLICATION_OPERATOR = "x";
 const DIVISION_OPERATOR = "÷";
 
-let leftOperand;
+let leftOperand = 0
 let operator = "";
-let rightOperand;
+let rightOperand = 0;
 
 function operate(leftOperand, operator, rightOperand) {
     switch(operator) {
@@ -60,6 +60,7 @@ keypad.addEventListener("click", event => {
         case(CLEAR_ENTRY):
             break;
         case(CLEAR):
+            clearAll();
             break;
         case(BACKSPACE):
             removeLastCharacter();
@@ -82,6 +83,25 @@ keypad.addEventListener("click", event => {
             break;         
     }
 });
+
+function clearAll() {
+    resetOperands();
+    resetOperator();
+    clearDisplayContent();
+}
+
+function resetOperands() {
+    leftOperand = rightOperand = 0;
+}
+
+function resetOperator() {
+    operator = "";
+}
+
+function clearDisplayContent() {
+    displayContent = "";
+    display.textContent = displayContent;
+}
 
 function removeLastCharacter() {    
     displayContent = displayContent.slice(0, -1);
@@ -120,11 +140,6 @@ function updateDisplayContent(content) {
 function updateOperator(operation) {
     operator = operation;
     pressedOperatorKey = true;
-}
-
-function clearDisplayContent() {
-    displayContent = "";
-    display.textContent = displayContent;
 }
 
 function negate() {
