@@ -96,21 +96,14 @@ function clearPreviousOperand() {
 }
 
 function clearAll() {
-    resetOperands();
-    resetOperator();
+    leftOperand = rightOperand = 0;
+    operator = "";
+     
     clearDisplayContent();
 }
 
-function resetOperands() {
-    leftOperand = rightOperand = 0;
-}
-
-function resetOperator() {
-    operator = "";
-}
-
 function clearDisplayContent() {
-    displayContent = "";
+    displayContent = "0";
     display.textContent = displayContent;
 }
 
