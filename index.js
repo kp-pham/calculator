@@ -110,8 +110,16 @@ function clearDisplayContent() {
     display.textContent = displayContent = DEFAULT_DISPLAY_CONTENT;
 }
 
-function removeLastCharacter() {    
-    display.textContent = displayContent = displayContent.slice(0, -1);
+function removeLastCharacter() {  
+    if (!lastRemainingDigit())
+        display.textContent = displayContent = displayContent.slice(0, -1);
+
+    else
+        clearDisplayContent();
+}
+
+function lastRemainingDigit() {
+    return displayContent.length === 1 || isNegative(displayContent) && displayContent.length === 2;
 }
 
 function clearAfterOperator() {
