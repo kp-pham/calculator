@@ -106,20 +106,20 @@ function disableOperatorKeys() {
     let operatorKeys = document.querySelectorAll(".operator");
     operatorKeys.forEach(key => {
         disableKey(key);
-        darkenDisabledKey(key);
+        lightenKey(key);
     });
 }
 
 function disablePlusMinusKey() {
     let plusMinusKey = document.querySelector(".plus-minus");
     disableKey(plusMinusKey);
-    darkenDisabledKey(plusMinusKey);
+    lightenKey(plusMinusKey);
 }
 
 function disableDecimalPointKey() {
     let decimalPointKey = document.querySelector(".decimal-point");
     disableKey(decimalPointKey);
-    darkenDisabledKey(decimalPointKey);
+    lightenKey(decimalPointKey);
 }
 
 function disableKey(key) {
@@ -128,8 +128,46 @@ function disableKey(key) {
 
 DISABLED_KEY_OPACITY = 0.4;
 
-function darkenDisabledKey(key) {
+function lightenKey(key) {
     key.style.opacity = DISABLED_KEY_OPACITY;
+}
+
+const clearError = new CustomEvent("clearError");
+
+keypad.addEventListener("clearError", () => {
+    enableOperatorKeys();
+    enablePlusMinusKey();
+    enableDecimalPointKey();
+});
+
+function enableOperatorKeys() {
+    let operatorKeys = document.querySelectorAll(".operator");
+    operatorKeys.forEach(key => {
+        enableKey(key);
+        darkenKey(key);
+    });
+}
+
+function enablePlusMinusKey() {
+    let plusMinusKey = document.querySelector(".plus-minus");
+    enableKey(plusMinusKey);
+    darkenKey(plusMinusKey);
+}
+
+function enableDecimalPointKey() {
+    let decimalPointKey = document.querySelector(".decimal-point");
+    enableKey(decimalPointKey);
+    darkenKey(decimalPointKey);
+}
+
+function enableKey(key) {
+    key.disabled = false;
+}
+
+ENABLED_KEY_OPACITY = 1;
+
+function darkenKey(key) {
+    key.style.opacity = ENABLED_KEY_OPACITY;
 }
 
 function clearPreviousOperand() {
@@ -242,8 +280,10 @@ function convertToDecimal() {
 }
 
 function clearOnError() {
-    if (errorMessage())
+    if (errorMessage()) {
+        keypad.dispatchEvent(clearError);
         clearAll();
+    }
 }
 
 function evaluate() {
@@ -272,12 +312,13 @@ function displayResult(result) {
     }
     else if (isInteger(result)) {
         display.textContent = displayContent = calculationOverflow(result) ? convertScientificNotation(result) : result.toString();
+        clearNextPress = true;
     }
     else {
         display.textContent = displayContent = truncateDecimal(result);
+        clearNextPress = true;
     }
 
-    clearNextPress = true;
 }
 
 function isErrorMessage(result) {
