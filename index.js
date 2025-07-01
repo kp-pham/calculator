@@ -63,13 +63,13 @@ keypad.addEventListener("click", event => {
 
     switch(keyType) {
         case(CLEAR_ENTRY):
-            clearPreviousOperand();
+            clearEntry();
             break;
         case(CLEAR):
             clearAll();
             break;
         case(BACKSPACE):
-            removeLastCharacter();
+            backspace();
             break;
         case(DIGIT):
             clearOnError();
@@ -171,6 +171,14 @@ function darkenKey(key) {
     key.style.opacity = ENABLED_KEY_OPACITY;
 }
 
+function clearEntry() {
+    if (errorMessage())
+        clearErrorState();
+
+    else
+        clearPreviousOperand();
+}
+
 function clearPreviousOperand() {
     if (rightOperand)
         leftOperand = 0;
@@ -182,14 +190,30 @@ function clearPreviousOperand() {
 }
 
 function clearAll() {
+    if (errorMessage()) {
+        clearErrorState();
+    }
+    else {
+        clearData();
+        clearDisplayContent();
+    }
+}
+
+function clearData() {
     leftOperand = rightOperand = 0;
     operator = "";
-     
-    clearDisplayContent();
 }
 
 function clearDisplayContent() {
     display.textContent = displayContent = DEFAULT_DISPLAY_CONTENT;
+}
+
+function backspace() {
+    if (errorMessage())
+        clearErrorState();
+
+    else
+        removeLastCharacter();
 }
 
 function removeLastCharacter() {  
