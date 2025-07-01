@@ -32,8 +32,10 @@ function multiply(a, b) {
     return a * b;
 }
 
+const DIVIDE_BY_ZERO_ERROR = "Cannot divide by zero";
+
 function divide(a, b) {
-    if (b == 0) return "Cannot divide by zero";
+    if (b == 0) return DIVIDE_BY_ZERO_ERROR;
     
     return a / b;
 }
@@ -111,15 +113,19 @@ function clearDisplayContent() {
 }
 
 function removeLastCharacter() {  
-    if (!lastRemainingDigit())
-        display.textContent = displayContent = displayContent.slice(0, -1);
+    if (lastRemainingDigit() || errorMessage())
+        clearDisplayContent();
 
     else
-        clearDisplayContent();
+        display.textContent = displayContent = displayContent.slice(0, -1);
 }
 
 function lastRemainingDigit() {
     return displayContent.length === 1 || isNegative(displayContent) && displayContent.length === 2;
+}
+
+function errorMessage() {
+    return displayContent === DIVIDE_BY_ZERO_ERROR;
 }
 
 function clearAfterOperator() {
