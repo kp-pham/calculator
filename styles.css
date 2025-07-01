@@ -23,7 +23,7 @@ body {
     margin: 10px;
     flex-basis: calc(30% - 20px);
     color: #F9FAF8;
-    background-color: #1f1f1f;
+    background-color: #24272e;
     font-size: 28px;
     border: 2px, solid, #383838;
 }
