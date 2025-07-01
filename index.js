@@ -94,6 +94,44 @@ keypad.addEventListener("click", event => {
     }
 });
 
+const error = new CustomEvent("error");
+
+keypad.addEventListener("error", () => {
+    disableOperatorKeys();
+    disablePlusMinusKey();
+    disableDecimalPointKey();
+});
+
+function disableOperatorKeys() {
+    let operatorKeys = document.querySelectorAll(".operator");
+    operatorKeys.forEach(key => {
+        disableKey(key);
+        darkenDisabledKey(key);
+    });
+}
+
+function disablePlusMinusKey() {
+    let plusMinusKey = document.querySelector(".plus-minus");
+    disableKey(plusMinusKey);
+    darkenDisabledKey(plusMinusKey);
+}
+
+function disableDecimalPointKey() {
+    let decimalPointKey = document.querySelector(".decimal-point");
+    disableKey(decimalPointKey);
+    darkenDisabledKey(decimalPointKey);
+}
+
+function disableKey(key) {
+    key.disabled = true;
+}
+
+DISABLED_KEY_OPACITY = 0.4;
+
+function darkenDisabledKey(key) {
+    key.style.opacity = DISABLED_KEY_OPACITY;
+}
+
 function clearPreviousOperand() {
     if (rightOperand)
         leftOperand = 0;
@@ -228,13 +266,16 @@ function updateRightOperand() {
 }
 
 function displayResult(result) {
-    if (isErrorMessage(result))
+    if (isErrorMessage(result)) {
         display.textContent = displayContent = result;
-
-    else if (isInteger(result))
+        keypad.dispatchEvent(error);
+    }
+    else if (isInteger(result)) {
         display.textContent = displayContent = calculationOverflow(result) ? convertScientificNotation(result) : result.toString();
-    else
+    }
+    else {
         display.textContent = displayContent = truncateDecimal(result);
+    }
 
     clearNextPress = true;
 }
