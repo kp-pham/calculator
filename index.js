@@ -79,9 +79,11 @@ keypad.addEventListener("click", event => {
             updateOperator(key.textContent);    
             break;
         case(PLUS_MINUS):
+            clearOnNextPress();
             negate();
             break;
         case(DECIMAL_POINT):
+            clearOnNextPress();
             convertToDecimal();
             break;
         case(EQUAL_SIGN):
@@ -210,7 +212,7 @@ function displayResult(result) {
         display.textContent = displayContent = result.toString();
 
     else
-        display.textContent = displayContent = parseFloat(result.toFixed(MAXIMUM_DECIMAL_PLACE));
+        display.textContent = displayContent = parseFloat(result.toFixed(MAXIMUM_DECIMAL_PLACE)).toString();
 
     clearNextPress = true;
 }
