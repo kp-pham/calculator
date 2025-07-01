@@ -226,8 +226,7 @@ function displayResult(result) {
         display.textContent = displayContent = result;
 
     else if (isInteger(result))
-        display.textContent = displayContent = result.toString();
-
+        display.textContent = displayContent = calculationOverflow(result) ? convertScientificNotation(result) : result.toString();
     else
         display.textContent = displayContent = truncateDecimal(result);
 
@@ -240,6 +239,16 @@ function isErrorMessage(result) {
 
 function isInteger(number) {
     return Math.floor(number) === number;
+}
+
+function calculationOverflow(result) {
+    return result.toString().length > MAXIMUM_DIGITS_DISPLAYED;
+}
+
+const SIGNIFICANT_FIGURES = 4;
+
+function convertScientificNotation(number) {
+    return number.toExponential(SIGNIFICANT_FIGURES);
 }
 
 function truncateDecimal(decimal) {
