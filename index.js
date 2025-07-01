@@ -63,17 +63,16 @@ keypad.addEventListener("click", event => {
 
     switch(keyType) {
         case(CLEAR_ENTRY):
-            clearEntry();
+            errorMessage() ? clearOnError() : removePreviousOperand();    
             break;
         case(CLEAR):
-            clearAll();
+            errorMessage() ? clearOnError() : clearAll();
             break;
         case(BACKSPACE):
-            backspace();
+            errorMessage() ? clearOnError() : removeLastCharacter();
             break;
         case(DIGIT):
-            clearOnError();
-            clearOnNextPress();
+            errorMessage() ? clearOnError() : clearOnNextPress();
             displayDigit(key.textContent);
             break;
         case(OPERATOR):
@@ -89,8 +88,7 @@ keypad.addEventListener("click", event => {
             convertToDecimal();
             break;
         case(EQUAL_SIGN):
-            clearOnError();
-            displayResult(evaluate());
+            errorMessage() ? clearOnError() : displayResult(evaluate());
             break;                     
     }
 });
@@ -171,15 +169,7 @@ function darkenKey(key) {
     key.style.opacity = ENABLED_KEY_OPACITY;
 }
 
-function clearEntry() {
-    if (errorMessage())
-        clearErrorState();
-
-    else
-        clearPreviousOperand();
-}
-
-function clearPreviousOperand() {
+function removePreviousOperand() {
     if (rightOperand)
         leftOperand = 0;
 
@@ -190,30 +180,18 @@ function clearPreviousOperand() {
 }
 
 function clearAll() {
-    if (errorMessage()) {
-        clearErrorState();
-    }
-    else {
-        clearData();
-        clearDisplayContent();
-    }
+    leftOperand = rightOperand = 0;
+    operator = "";
+
+    clearDisplayContent();
 }
 
 function clearData() {
-    leftOperand = rightOperand = 0;
-    operator = "";
+    
 }
 
 function clearDisplayContent() {
     display.textContent = displayContent = DEFAULT_DISPLAY_CONTENT;
-}
-
-function backspace() {
-    if (errorMessage())
-        clearErrorState();
-
-    else
-        removeLastCharacter();
 }
 
 function removeLastCharacter() {  
@@ -365,7 +343,7 @@ function convertScientificNotation(number) {
 }
 
 function truncateDecimal(decimal) {
-    digitsBeforeDecimal = getDigitsBeforeDecimal(decimal);
+    let digitsBeforeDecimal = getDigitsBeforeDecimal(decimal);
     decimalPlaceToRound = getDecimalPlaceToRound(digitsBeforeDecimal);
 
     return parseFloat(decimal.toFixed(decimalPlaceToRound)).toString();
