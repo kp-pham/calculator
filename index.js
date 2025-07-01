@@ -76,7 +76,6 @@ keypad.addEventListener("click", event => {
             displayDigit(key.textContent);
             break;
         case(OPERATOR):
-            clearOnNextPress();
             updateOperator(key.textContent);    
             break;
         case(PLUS_MINUS):
@@ -186,10 +185,6 @@ function clearAll() {
     clearDisplayContent();
 }
 
-function clearData() {
-    
-}
-
 function clearDisplayContent() {
     display.textContent = displayContent = DEFAULT_DISPLAY_CONTENT;
 }
@@ -259,7 +254,7 @@ function updateOperator(symbol) {
 }
 
 function unevaluatedPair() {
-    return leftOperand != 0;
+    return clearNextPress === false && operator != "";
 }
 
 function negate() {
