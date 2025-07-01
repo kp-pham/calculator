@@ -40,9 +40,6 @@ function divide(a, b) {
     return a / b;
 }
 
-const DEFAULT_DISPLAY_CONTENT = "0";
-const MAXIMUM_DECIMAL_PLACE = 13;
-
 const CLEAR_ENTRY = "clear-entry";
 const CLEAR = "clear";
 const BACKSPACE = "backspace";
@@ -55,8 +52,10 @@ const EQUAL_SIGN = "equal-sign";
 const keypad = document.querySelector(".buttons");
 const display = document.querySelector(".display");
 
+const DEFAULT_DISPLAY_CONTENT = "0";
 let displayContent = DEFAULT_DISPLAY_CONTENT;
-let pressedOperatorKey = false;
+
+let clearNextPress = false;
 
 keypad.addEventListener("click", event => {
     const key = event.target;
@@ -73,7 +72,7 @@ keypad.addEventListener("click", event => {
             removeLastCharacter();
             break;
         case(DIGIT):
-            clearAfterOperator();
+            clearOnNextPress();
             displayDigit(key.textContent);
             break;
         case(OPERATOR):
@@ -128,11 +127,11 @@ function errorMessage() {
     return displayContent === DIVIDE_BY_ZERO_ERROR;
 }
 
-function clearAfterOperator() {
-    if (pressedOperatorKey) {
+function clearOnNextPress() {
+    if (clearNextPress) {
         updateLeftOperand();
         clearDisplayContent();
-        pressedOperatorKey = false;
+        clearNextPress = false;
     }
 }
 
@@ -160,12 +159,12 @@ function updateDisplayContent(content) {
         display.textContent = displayContent = content;
 }
 
-function updateOperator(operation) {
+function updateOperator(symbol) {    
     if (unevaluatedPair())
-        evaluate();
-    
-    operator = operation;
-    pressedOperatorKey = true;
+        displayResult(evaluate());
+  
+    operator = symbol;
+    clearNextPress = true;
 }
 
 function unevaluatedPair() {
@@ -193,13 +192,15 @@ function convertToDecimal() {
 }
 
 function evaluate() {
-    updateRightOperand();
+    updateRightOperand();    
     return operate(leftOperand, operator, rightOperand);
 }
 
 function updateRightOperand() {
     rightOperand = updateOperand(displayContent);
 }
+
+const MAXIMUM_DECIMAL_PLACE = 13;
 
 function displayResult(result) {
     if (isErrorMessage(result))
@@ -210,6 +211,8 @@ function displayResult(result) {
 
     else
         display.textContent = displayContent = parseFloat(result.toFixed(MAXIMUM_DECIMAL_PLACE));
+
+    clearNextPress = true;
 }
 
 function isErrorMessage(result) {
