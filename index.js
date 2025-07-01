@@ -145,8 +145,15 @@ function updateDisplayContent(content) {
 }
 
 function updateOperator(operation) {
+    if (unevaluatedPair())
+        evaluate();
+    
     operator = operation;
     pressedOperatorKey = true;
+}
+
+function unevaluatedPair() {
+    return leftOperand != 0;
 }
 
 function negate() {
