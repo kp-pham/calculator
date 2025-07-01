@@ -221,8 +221,6 @@ function updateRightOperand() {
     rightOperand = updateOperand(displayContent);
 }
 
-const MAXIMUM_DECIMAL_PLACE = 13;
-
 function displayResult(result) {
     if (isErrorMessage(result))
         display.textContent = displayContent = result;
@@ -231,7 +229,7 @@ function displayResult(result) {
         display.textContent = displayContent = result.toString();
 
     else
-        display.textContent = displayContent = parseFloat(result.toFixed(MAXIMUM_DECIMAL_PLACE)).toString();
+        display.textContent = displayContent = truncateDecimal(result);
 
     clearNextPress = true;
 }
@@ -242,4 +240,22 @@ function isErrorMessage(result) {
 
 function isInteger(number) {
     return Math.floor(number) === number;
+}
+
+function truncateDecimal(decimal) {
+    digitsBeforeDecimal = getDigitsBeforeDecimal(decimal);
+    decimalPlaceToRound = getDecimalPlaceToRound(digitsBeforeDecimal);
+
+    return parseFloat(decimal.toFixed(decimalPlaceToRound)).toString();
+}
+
+const MAXIMUM_DECIMAL_PLACE = 13;
+
+function getDecimalPlaceToRound(digitsBeforeDecimal) {
+    return MAXIMUM_DECIMAL_PLACE - digitsBeforeDecimal;
+}
+
+function getDigitsBeforeDecimal(decimal) {
+    let string = decimal.toString();
+    return string.substring(0, string.indexOf(".")).length;
 }
