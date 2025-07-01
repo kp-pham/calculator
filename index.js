@@ -88,7 +88,7 @@ keypad.addEventListener("click", event => {
             break;
         case(EQUAL_SIGN):
             displayResult(evaluate());
-            break;         
+            break;                     
     }
 });
 
@@ -194,8 +194,18 @@ function convertToDecimal() {
 }
 
 function evaluate() {
-    updateRightOperand();    
-    return operate(leftOperand, operator, rightOperand);
+    if (identity()) {
+        updateLeftOperand();
+        return leftOperand;
+    }
+    else {
+        updateRightOperand();    
+        return operate(leftOperand, operator, rightOperand);
+    }
+}
+
+function identity() {
+    return operator === "";
 }
 
 function updateRightOperand() {
