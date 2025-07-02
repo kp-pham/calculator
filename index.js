@@ -295,7 +295,7 @@ function performNegation() {
     onButtonPress();
 
     if (isNonzero())
-        negateNumber();
+        negate();
 }
 
 function negate() {
