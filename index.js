@@ -230,7 +230,6 @@ function onButtonPress() {
 }
 
 function clearOnNextPress() {
-    updateLeftOperand();
     clearDisplayContent();
 }
 
@@ -281,6 +280,7 @@ function enterOperation(symbol) {
     }
 
     updateOperator(symbol);
+    updateLeftOperand();
 }
 
 function updateOperator(symbol) {
@@ -293,8 +293,6 @@ function unevaluatedPair() {
 }
 
 function performNegation() {
-    onButtonPress();
-
     if (isNonzero())
         negate();
 }
