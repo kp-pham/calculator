@@ -360,8 +360,12 @@ const HYPHEN_MINUS = "-";
 const ASTERISK = "*";
 const FOWARD_SLASH = "/";
 
+
 document.addEventListener("keydown", event => {
-    if (event.shiftKey && event.key == PLUS_SIGN)
+    if (digitKeyPressed(event.key))
+        updateDisplayContent(event.key);
+    
+    else if (event.shiftKey && event.key == PLUS_SIGN)
         updateOperator(ADDITION_OPERATOR);
 
     else if (event.key == HYPHEN_MINUS)
@@ -373,3 +377,7 @@ document.addEventListener("keydown", event => {
     else if (event.key == FOWARD_SLASH)
         updateOperator(DIVISION_OPERATOR);
 });
+
+function digitKeyPressed(key) {
+    return key >= "0" && key <= "9";
+}
