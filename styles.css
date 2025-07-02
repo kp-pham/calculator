@@ -50,7 +50,7 @@ button {
 
 .clear-entry,
 .clear,
-.backspace,
+.undo,
 .operator {
     color: #F9FAF8;
     background-color: #2D3245;
@@ -58,7 +58,7 @@ button {
 
 .clear-entry,
 .clear,
-.backspace {
+.undo {
     font-size: 16px;
 }
 

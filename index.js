@@ -63,31 +63,28 @@ keypad.addEventListener("click", event => {
 
     switch(keyType) {
         case(CLEAR_ENTRY):
-            errorMessage() ? clearOnError() : removePreviousOperand();    
+            clearEntry();    
             break;
         case(CLEAR):
-            errorMessage() ? clearOnError() : clearAll();
+            clearAll();
             break;
         case(UNDO):
-            errorMessage() ? clearOnError() : removeLastCharacter();
+            undo();
             break;
         case(DIGIT):
-            errorMessage() ? clearOnError() : clearOnNextPress();
-            displayDigit(key.textContent);
+            enterDigit(key.textContent);
             break;
         case(OPERATOR):
-            updateOperator(key.textContent);    
+            enterOperation(key.textContent);    
             break;
         case(PLUS_MINUS):
-            clearOnNextPress();
             negate();
             break;
         case(DECIMAL_POINT):
-            clearOnNextPress();
-            convertToDecimal();
+            enterDecimalPoint();
             break;
         case(EQUAL_SIGN):
-            errorMessage() ? clearOnError() : displayResult(evaluate());
+            performOperation();
             break;                     
     }
 });
@@ -168,6 +165,10 @@ function darkenKey(key) {
     key.style.opacity = ENABLED_KEY_OPACITY;
 }
 
+function clearEntry() {
+    errorMessage() ? clearOnError() : removePreviousOperand();
+}
+
 function removePreviousOperand() {
     if (rightOperand)
         leftOperand = 0;
@@ -179,6 +180,10 @@ function removePreviousOperand() {
 }
 
 function clearAll() {
+    errorMessage() ? clearOnError() : reset();
+}
+
+function reset() {
     leftOperand = rightOperand = 0;
     operator = "";
 
@@ -187,6 +192,10 @@ function clearAll() {
 
 function clearDisplayContent() {
     display.textContent = displayContent = DEFAULT_DISPLAY_CONTENT;
+}
+
+function undo() {
+    errorMessage() ? clearOnError() : removeLastCharacter();
 }
 
 function removeLastCharacter() {  
@@ -225,6 +234,11 @@ function isDecimal(displayContent) {
     return displayContent.includes(".");
 }
 
+function enterDigit(digit) {
+    errorMessage() ? clearOnError() : clearOnNextPress();
+    displayDigit(digit);
+}
+
 function displayDigit(digit) {
     updateDisplayContent(digit);
 }
@@ -245,10 +259,14 @@ function reachedDisplayLength() {
     return displayContent.length === MAXIMUM_DIGITS_DISPLAYED;
 }
 
-function updateOperator(symbol) {    
+function enterOperation(symbol) {    
     if (unevaluatedPair())
         displayResult(evaluate());
 
+    updateOperator(symbol);
+}
+
+function updateOperator(symbol) {
     operator = symbol;
     clearNextPress = true;
 }
@@ -257,11 +275,16 @@ function unevaluatedPair() {
     return clearNextPress === false && operator != "";
 }
 
+function negateNumber() {
+    clearOnNextPress();
+
+    if (isNonzero())
+        negate();
+}
+
 function negate() {
-    if (isNonzero()) {
-        displayContent = isNegative(displayContent) ? displayContent.slice(1) : "-" + displayContent;
-        display.textContent = displayContent;
-    }
+    displayContent = isNegative(displayContent) ? displayContent.slice(1) : "-" + displayContent;
+    display.textContent = displayContent;
 }
 
 function isNegative() {
@@ -272,6 +295,11 @@ function isNonzero() {
     return displayContent != "0";
 }
 
+function enterDecimalPoint() {
+    clearOnNextPress();
+    convertToDecimal();
+}
+
 function convertToDecimal() {
     if (!isDecimal(displayContent))
         display.textContent = displayContent += ".";
@@ -280,8 +308,12 @@ function convertToDecimal() {
 function clearOnError() {
     if (errorMessage()) {
         keypad.dispatchEvent(clearError);
-        clearAll();
+        reset();
     }
+}
+
+function performOperation() {
+    errorMessage() ? clearOnError() : displayResult(evaluate());
 }
 
 function evaluate() {
