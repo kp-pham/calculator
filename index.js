@@ -278,12 +278,15 @@ function reachedDisplayLength() {
 }
 
 function enterOperation(symbol) {    
-    if (unevaluatedPair()) {
-        displayResult(evaluate());
-    }
+    if (unevaluatedPair())
+        chainOperation();
 
     updateOperator(symbol);
     updateLeftOperand();
+}
+
+function chainOperation() {
+    displayResult(evaluate());
 }
 
 function updateOperator(symbol) {
