@@ -291,7 +291,10 @@ function chainOperation() {
 
 function updateOperator(symbol) {
     operator = symbol;
+    setClearNextPress();
+}
 
+function setClearNextPress() {
     clearNextPress = true;
     resetNextPress = false;
 }
