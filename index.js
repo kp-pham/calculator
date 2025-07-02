@@ -301,8 +301,12 @@ function enterDecimalPoint() {
 }
 
 function convertToDecimal() {
-    if (!isDecimal(displayContent))
+    if (!isDecimal(displayContent) && !noDecimalPlacesLeft())
         display.textContent = displayContent += ".";
+}
+
+function noDecimalPlacesLeft() {
+    return displayContent.length === MAXIMUM_DIGITS_DISPLAYED - 1;
 }
 
 function clearOnError() {
