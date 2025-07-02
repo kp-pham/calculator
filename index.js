@@ -396,7 +396,9 @@ document.addEventListener("keydown", event => {
 
     else if (clearKeyPressed(event))
         handleClearKeyPressed(event.key);
-    
+
+    else if (plusMinusKeyPressed(event))
+        handlePlusMinusKeyPressed();
 });
 
 function digitKeyPressed(event) {
@@ -461,4 +463,14 @@ function handleClearKeyPressed(key) {
             undo();
             break;
     }
+}
+
+const F9 = "F9";
+
+function plusMinusKeyPressed(event) {
+    return event.key === F9;
+}
+
+function handlePlusMinusKeyPressed() {
+    negate();
 }
