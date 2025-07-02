@@ -355,29 +355,49 @@ function getDigitsBeforeDecimal(decimal) {
     return string.substring(0, string.indexOf(".")).length;
 }
 
+document.addEventListener("keydown", event => {
+    if (digitKeyPressed(event))
+        updateDisplayContent(event.key);
+    
+    else if (operatorKeyPressed(event))
+        handleOperatorKeyPressed(event.key);
+    
+});
+
+function digitKeyPressed(event) {
+    return event.key >= "0" && event.key <= "9";
+}
+
 const PLUS_SIGN = "+";
 const HYPHEN_MINUS = "-";
 const ASTERISK = "*";
-const FOWARD_SLASH = "/";
+const FORWARD_SLASH = "/";
 
+function shiftKeyPressed(event) {
+    return event.shiftKey;
+}
 
-document.addEventListener("keydown", event => {
-    if (digitKeyPressed(event.key))
-        updateDisplayContent(event.key);
-    
-    else if (event.shiftKey && event.key == PLUS_SIGN)
-        updateOperator(ADDITION_OPERATOR);
+function operatorKeyPressed(event) {
+    return shiftKeyPressed(event) && event.key === PLUS_SIGN ||
+        event.key == HYPHEN_MINUS ||
+        event.key == ASTERISK ||
+        event.key == FORWARD_SLASH;
+}
 
-    else if (event.key == HYPHEN_MINUS)
-        updateOperator(SUBTRACTION_OPERATOR);
-    
-    else if (event.shiftKey && event.key == ASTERISK)
-        updateOperator(MULTIPLICATION_OPERATOR);
-
-    else if (event.key == FOWARD_SLASH)
-        updateOperator(DIVISION_OPERATOR);
-});
-
-function digitKeyPressed(key) {
-    return key >= "0" && key <= "9";
+function handleOperatorKeyPressed(key) {
+    console.log(key);
+    switch(key) {
+        case PLUS_SIGN:
+            updateOperator(ADDITION_OPERATOR);
+            break;
+        case HYPHEN_MINUS:
+            updateOperator(SUBTRACTION_OPERATOR);
+            break;
+        case ASTERISK:
+            updateOperator(MULTIPLICATION_OPERATOR);
+            break;
+        case FORWARD_SLASH:
+            updateOperator(DIVISION_OPERATOR);
+            break;
+    }
 }
