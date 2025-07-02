@@ -185,6 +185,11 @@ function clearAll() {
 }
 
 function reset() {
+    resetInput();
+    clear();
+}
+
+function resetInput() {
     leftOperand = rightOperand = 0;
     operator = "";
 }
@@ -217,15 +222,22 @@ function onButtonPress() {
     if (errorMessage()) {
         clearOnError();
     }
-    else if (clearNextPress) {
+    else if (nextOperand()) {
         clear();
         clearNextPress = false;
     }
-    else if (resetNextPress) {
+    else if (newOperation()) {
         reset();
-        clear();
         resetNextPress = false;
     }
+}
+
+function nextOperand() {
+    return clearNextPress === true;
+}
+
+function newOperation() {
+    return resetNextPress === true;
 }
 
 function updateLeftOperand() {
@@ -286,14 +298,16 @@ function unevaluatedPair() {
 }
 
 function performNegation() {    
-    if (resetNextPress) {
-        reset();
-        updateLeftOperand();
-        resetNextPress = false;
-    }
+    if (newOperation())
+        carryOver();
     
     if (isNonzero())
         negate();
+}
+
+function carryOver() {
+    resetInput();
+    resetNextPress = false;
 }
 
 function negate() {
