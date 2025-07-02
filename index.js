@@ -371,9 +371,9 @@ function convertScientificNotation(number) {
 
 function truncateDecimal(decimal) {
     let digitsBeforeDecimal = getDigitsBeforeDecimal(decimal);
-    decimalPlaceToRound = getDecimalPlaceToRound(digitsBeforeDecimal);
+    let decimalPlaceToRound = getDecimalPlaceToRound(digitsBeforeDecimal);
 
-    return parseFloat(decimal.toFixed(decimalPlaceToRound)).toString();
+    return calculationOverflow(decimal) ? convertScientificNotation(decimal) : removeTrailingZeros(decimal, decimalPlaceToRound);
 }
 
 const MAXIMUM_DECIMAL_PLACE = 13;
@@ -385,6 +385,10 @@ function getDecimalPlaceToRound(digitsBeforeDecimal) {
 function getDigitsBeforeDecimal(decimal) {
     let string = decimal.toString();
     return string.substring(0, string.indexOf(".")).length;
+}
+
+function removeTrailingZeros(decimal, decimalPlaceToRound) {
+    return parseFloat(decimal.toFixed(decimalPlaceToRound)).toString();
 }
 
 document.addEventListener("keydown", event => {
