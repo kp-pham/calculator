@@ -167,7 +167,7 @@ function darkenKey(key) {
 }
 
 function clearEntry() {
-    errorMessage() ? clearOnError() : removePreviousOperand();
+    errorMessage() ? resetOnError() : removePreviousOperand();
 }
 
 function removePreviousOperand() {
@@ -181,7 +181,7 @@ function removePreviousOperand() {
 }
 
 function clearAll() {
-    errorMessage() ? clearOnError() : reset();
+    errorMessage() ? reetOnError() : reset();
 }
 
 function reset() {
@@ -199,7 +199,7 @@ function clear() {
 }
 
 function undo() {
-    errorMessage() ? clearOnError() : removeLastCharacter();
+    errorMessage() ? resetOnError() : removeLastCharacter();
 }
 
 function removeLastCharacter() {  
@@ -220,7 +220,7 @@ function errorMessage() {
 
 function onButtonPress() {
     if (errorMessage()) {
-        clearOnError();
+        resetOnError();
     }
     else if (nextOperand()) {
         clear();
@@ -340,7 +340,7 @@ function noDecimalPlacesLeft() {
     return displayContent.length === MAXIMUM_DIGITS_DISPLAYED - 1;
 }
 
-function clearOnError() {
+function resetOnError() {
     if (errorMessage()) {
         keypad.dispatchEvent(clearError);
         reset();
@@ -348,7 +348,7 @@ function clearOnError() {
 }
 
 function performOperation() {
-    errorMessage() ? clearOnError() : displayResult(evaluate());
+    errorMessage() ? resetOnError() : displayResult(evaluate());
     clearNextPress = false;
     resetNextPress = true;
 }
