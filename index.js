@@ -389,7 +389,7 @@ function getDigitsBeforeDecimal(decimal) {
 
 document.addEventListener("keydown", event => {
     if (digitKeyPressed(event))
-        updateDisplayContent(event.key);
+        handleDigitKeyPressed(event.key);
     
     else if (operatorKeyPressed(event))
         handleOperatorKeyPressed(event.key);
@@ -401,6 +401,10 @@ document.addEventListener("keydown", event => {
 
 function digitKeyPressed(event) {
     return event.key >= "0" && event.key <= "9";
+}
+
+function handleDigitKeyPressed(key) {
+    enterDigit(key);
 }
 
 const PLUS_SIGN = "+";
@@ -423,16 +427,16 @@ function handleOperatorKeyPressed(key) {
     console.log(key);
     switch(key) {
         case PLUS_SIGN:
-            updateOperator(ADDITION_OPERATOR);
+            enterOperation(ADDITION_OPERATOR);
             break;
         case HYPHEN_MINUS:
-            updateOperator(SUBTRACTION_OPERATOR);
+            enterOperation(SUBTRACTION_OPERATOR);
             break;
         case ASTERISK:
             updateOperator(MULTIPLICATION_OPERATOR);
             break;
         case FORWARD_SLASH:
-            updateOperator(DIVISION_OPERATOR);
+            enterOperation(DIVISION_OPERATOR);
             break;
     }
 }
@@ -448,10 +452,13 @@ function clearKeyPressed(event) {
 function handleClearKeyPressed(key) {
     switch(key) {
         case DELETE:
+            clearEntry();
             break;
         case ESCAPE:
+            clearAll();
             break;
         case BACKSPACE:
+            undo();
             break;
     }
 }
