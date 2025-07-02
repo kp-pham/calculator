@@ -56,6 +56,7 @@ const DEFAULT_DISPLAY_CONTENT = "0";
 let displayContent = DEFAULT_DISPLAY_CONTENT;
 
 let clearNextPress = false;
+let resetNextPress = false;
 
 keypad.addEventListener("click", event => {
     const key = event.target;
@@ -214,12 +215,27 @@ function errorMessage() {
     return displayContent === DIVIDE_BY_ZERO_ERROR;
 }
 
-function clearOnNextPress() {
-    if (clearNextPress) {
-        updateLeftOperand();
-        clearDisplayContent();
+function onButtonPress() {
+    if (errorMessage()) {
+        clearOnError();
+    }
+    else if (clearNextPress) {
+        clearOnNextPress();
         clearNextPress = false;
     }
+    else if (resetNextPress) {
+        resetOnNextPress();
+        resetNextPress = false;
+    }
+}
+
+function clearOnNextPress() {
+    updateLeftOperand();
+    clearDisplayContent();
+}
+
+function resetOnNextPress() {
+    reset();
 }
 
 function updateLeftOperand() {
@@ -235,7 +251,7 @@ function isDecimal(displayContent) {
 }
 
 function enterDigit(digit) {
-    errorMessage() ? clearOnError() : clearOnNextPress();
+    onButtonPress();
     displayDigit(digit);
 }
 
@@ -276,7 +292,7 @@ function unevaluatedPair() {
 }
 
 function negateNumber() {
-    clearOnNextPress();
+    onButtonPress();
 
     if (isNonzero())
         negate();
@@ -296,7 +312,7 @@ function isNonzero() {
 }
 
 function enterDecimalPoint() {
-    clearOnNextPress();
+    onButtonPress();
     convertToDecimal();
 }
 
@@ -346,11 +362,11 @@ function displayResult(result) {
     }
     else if (isInteger(result)) {
         display.textContent = displayContent = calculationOverflow(result) ? convertScientificNotation(result) : result.toString();
-        clearNextPress = true;
+        resetNextPress = true;
     }
     else {
         display.textContent = displayContent = truncateDecimal(result);
-        clearNextPress = true;
+        resetNextPress = true;
     }
 
 }
