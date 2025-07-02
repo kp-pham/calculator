@@ -402,6 +402,9 @@ document.addEventListener("keydown", event => {
 
     else if (periodKeyPressed(event))
         handlePeriodKeyPressed();
+
+    else if (equalsKeyPressed(event))
+        handleEqualsKeyPressed();
 });
 
 function digitKeyPressed(event) {
@@ -429,7 +432,6 @@ function operatorKeyPressed(event) {
 }
 
 function handleOperatorKeyPressed(key) {
-    console.log(key);
     switch(key) {
         case PLUS_SIGN:
             enterOperation(ADDITION_OPERATOR);
@@ -486,4 +488,14 @@ function periodKeyPressed(event) {
 
 function handlePeriodKeyPressed() {
     enterDecimalPoint();
+}
+
+const EQUALS = "=";
+
+function equalsKeyPressed(event) {
+    return event.key === EQUALS;
+}
+
+function handleEqualsKeyPressed() {
+    performOperation();
 }
