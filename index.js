@@ -42,8 +42,8 @@ function divide(a, b) {
 
 const CLEAR_ENTRY = "clear-entry";
 const CLEAR = "clear";
-const BACKSPACE = "backspace";
-const DIGIT= "digit";
+const UNDO = "undo";
+const DIGIT = "digit";
 const OPERATOR = "operator";
 const PLUS_MINUS = "plus-minus";
 const DECIMAL_POINT = "decimal-point";
@@ -68,7 +68,7 @@ keypad.addEventListener("click", event => {
         case(CLEAR):
             errorMessage() ? clearOnError() : clearAll();
             break;
-        case(BACKSPACE):
+        case(UNDO):
             errorMessage() ? clearOnError() : removeLastCharacter();
             break;
         case(DIGIT):
@@ -361,6 +361,9 @@ document.addEventListener("keydown", event => {
     
     else if (operatorKeyPressed(event))
         handleOperatorKeyPressed(event.key);
+
+    else if (clearKeyPressed(event))
+        handleClearKeyPressed(event.key);
     
 });
 
@@ -379,9 +382,9 @@ function shiftKeyPressed(event) {
 
 function operatorKeyPressed(event) {
     return shiftKeyPressed(event) && event.key === PLUS_SIGN ||
-        event.key == HYPHEN_MINUS ||
-        event.key == ASTERISK ||
-        event.key == FORWARD_SLASH;
+        event.key === HYPHEN_MINUS ||
+        event.key === ASTERISK ||
+        event.key === FORWARD_SLASH;
 }
 
 function handleOperatorKeyPressed(key) {
@@ -398,6 +401,25 @@ function handleOperatorKeyPressed(key) {
             break;
         case FORWARD_SLASH:
             updateOperator(DIVISION_OPERATOR);
+            break;
+    }
+}
+
+const DELETE = "Delete";
+const ESCAPE = "Escape";
+const BACKSPACE = "Backspace";
+
+function clearKeyPressed(event) {
+    return event.key === DELETE || event.key === ESCAPE || event.key === BACKSPACE;
+}
+
+function handleClearKeyPressed(key) {
+    switch(key) {
+        case DELETE:
+            break;
+        case ESCAPE:
+            break;
+        case BACKSPACE:
             break;
     }
 }
