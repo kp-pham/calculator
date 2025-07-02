@@ -177,7 +177,7 @@ function removePreviousOperand() {
     else
         rightOperand = 0;
 
-    clearDisplayContent();
+    clear();
 }
 
 function clearAll() {
@@ -187,11 +187,9 @@ function clearAll() {
 function reset() {
     leftOperand = rightOperand = 0;
     operator = "";
-
-    clearDisplayContent();
 }
 
-function clearDisplayContent() {
+function clear() {
     display.textContent = displayContent = DEFAULT_DISPLAY_CONTENT;
 }
 
@@ -201,7 +199,7 @@ function undo() {
 
 function removeLastCharacter() {  
     if (lastRemainingDigit() || errorMessage())
-        clearDisplayContent();
+        clear();
 
     else
         display.textContent = displayContent = displayContent.slice(0, -1);
@@ -220,21 +218,14 @@ function onButtonPress() {
         clearOnError();
     }
     else if (clearNextPress) {
-        clearOnNextPress();
+        clear();
         clearNextPress = false;
     }
     else if (resetNextPress) {
-        resetOnNextPress();
+        reset();
+        clear();
         resetNextPress = false;
     }
-}
-
-function clearOnNextPress() {
-    clearDisplayContent();
-}
-
-function resetOnNextPress() {
-    reset();
 }
 
 function updateLeftOperand() {
@@ -285,14 +276,22 @@ function enterOperation(symbol) {
 
 function updateOperator(symbol) {
     operator = symbol;
+
     clearNextPress = true;
+    resetNextPress = false;
 }
 
 function unevaluatedPair() {
     return clearNextPress === false && operator != "";
 }
 
-function performNegation() {
+function performNegation() {    
+    if (resetNextPress) {
+        reset();
+        updateLeftOperand();
+        resetNextPress = false;
+    }
+    
     if (isNonzero())
         negate();
 }
@@ -333,6 +332,7 @@ function clearOnError() {
 
 function performOperation() {
     errorMessage() ? clearOnError() : displayResult(evaluate());
+    clearNextPress = false;
     resetNextPress = true;
 }
 
