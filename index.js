@@ -399,6 +399,9 @@ document.addEventListener("keydown", event => {
 
     else if (plusMinusKeyPressed(event))
         handlePlusMinusKeyPressed();
+
+    else if (periodKeyPressed(event))
+        handlePeriodKeyPressed();
 });
 
 function digitKeyPressed(event) {
@@ -473,4 +476,14 @@ function plusMinusKeyPressed(event) {
 
 function handlePlusMinusKeyPressed() {
     negate();
+}
+
+const PERIOD = ".";
+
+function periodKeyPressed(event) {
+    return event.key === PERIOD;
+}
+
+function handlePeriodKeyPressed() {
+    enterDecimalPoint();
 }
