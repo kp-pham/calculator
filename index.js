@@ -276,8 +276,9 @@ function reachedDisplayLength() {
 }
 
 function enterOperation(symbol) {    
-    if (unevaluatedPair())
+    if (unevaluatedPair()) {
         displayResult(evaluate());
+    }
 
     updateOperator(symbol);
 }
@@ -334,6 +335,7 @@ function clearOnError() {
 
 function performOperation() {
     errorMessage() ? clearOnError() : displayResult(evaluate());
+    resetNextPress = true;
 }
 
 function evaluate() {
@@ -362,13 +364,10 @@ function displayResult(result) {
     }
     else if (isInteger(result)) {
         display.textContent = displayContent = calculationOverflow(result) ? convertScientificNotation(result) : result.toString();
-        resetNextPress = true;
     }
     else {
         display.textContent = displayContent = truncateDecimal(result);
-        resetNextPress = true;
     }
-
 }
 
 function isErrorMessage(result) {
