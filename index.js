@@ -79,7 +79,7 @@ keypad.addEventListener("click", event => {
             enterOperation(key.textContent);    
             break;
         case(PLUS_MINUS):
-            negate();
+            performNegation();
             break;
         case(DECIMAL_POINT):
             enterDecimalPoint();
@@ -291,11 +291,11 @@ function unevaluatedPair() {
     return clearNextPress === false && operator != "";
 }
 
-function negateNumber() {
+function performNegation() {
     onButtonPress();
 
     if (isNonzero())
-        negate();
+        negateNumber();
 }
 
 function negate() {
