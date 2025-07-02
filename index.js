@@ -403,8 +403,8 @@ document.addEventListener("keydown", event => {
     else if (periodKeyPressed(event))
         handlePeriodKeyPressed();
 
-    else if (equalsKeyPressed(event))
-        handleEqualsKeyPressed();
+    else if (evaluateKeyPressed(event))
+        handleEvaluateKeyPressed();
 });
 
 function digitKeyPressed(event) {
@@ -491,11 +491,12 @@ function handlePeriodKeyPressed() {
 }
 
 const EQUALS = "=";
+const ENTER = "Enter";
 
-function equalsKeyPressed(event) {
-    return event.key === EQUALS;
+function evaluateKeyPressed(event) {
+    return event.key === EQUALS || event.key === ENTER;
 }
 
-function handleEqualsKeyPressed() {
+function handleEvaluateKeyPressed() {
     performOperation();
 }
