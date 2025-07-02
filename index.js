@@ -352,6 +352,10 @@ function resetOnError() {
 
 function performOperation() {
     errorMessage() ? resetOnError() : displayResult(evaluate());
+    setResetNextPress();
+}
+
+function setResetNextPress() {
     clearNextPress = false;
     resetNextPress = true;
 }
