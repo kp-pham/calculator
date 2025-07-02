@@ -354,3 +354,22 @@ function getDigitsBeforeDecimal(decimal) {
     let string = decimal.toString();
     return string.substring(0, string.indexOf(".")).length;
 }
+
+const PLUS_SIGN = "+";
+const HYPHEN_MINUS = "-";
+const ASTERISK = "*";
+const FOWARD_SLASH = "/";
+
+document.addEventListener("keydown", event => {
+    if (event.shiftKey && event.key == PLUS_SIGN)
+        updateOperator(ADDITION_OPERATOR);
+
+    else if (event.key == HYPHEN_MINUS)
+        updateOperator(SUBTRACTION_OPERATOR);
+    
+    else if (event.shiftKey && event.key == ASTERISK)
+        updateOperator(MULTIPLICATION_OPERATOR);
+
+    else if (event.key == FOWARD_SLASH)
+        updateOperator(DIVISION_OPERATOR);
+});
