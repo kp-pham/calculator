@@ -22,8 +22,6 @@ This project submission is based on the standard mode of the Windows Calculator 
 
 ## Calculator as Finite State Machine
 
-*For more information about state diagrams, click [here](https://en.wikipedia.org/wiki/State_diagram).*
-
 *Please see this [Reddit post](https://www.reddit.com/r/learnprogramming/comments/vkm9cr/how_to_clear_a_first_number_from_a_calculators/) which inspired me to learn about finite state machines and state diagrams when I encountered a problem with clearing the display when an operator is selected to enter digits for the other operand. Thank you to [u/bsakiag](https://www.reddit.com/user/bsakiag/) for their explanation and breakdown of the problem and [u/Fuegobruh](https://www.reddit.com/user/Fuegobruh/) for posting this question.*
 
 ### Background
@@ -47,7 +45,45 @@ When functions are implemented with preconditions and postconditions in mind, fu
 
 *For more information about finite state machines, click [here](https://en.wikipedia.org/wiki/Finite-state_machine).*
 
+When we learned about DOM manipulation and events, we followed the programming paradigm of event-driven programming. We implemented event listeners for buttons to perform actions when clicked and the color of the square of the grid to change to a random color and darken with each interaction when hovering the mouse over them. We also implemented our own custom events and dispatched them to the corresponding target element when none of the built-in events suited the needs of our program.
 
+The programming paradigm of event-driven programming is a suitable approach for the implementation of the calaculator because the use cases of the calculator require user interaction with the calaculator. The user presses the buttons on the calculator and types on the keyboard to enter numbers into the calculator and perform the calculation. The calculator handles user interaction as external events based on the buttons which were pressed and the keyboard shortcuts which were pressed to store the numbers entered into the calaculator and perform the correct calculation to update the display with the correct information.
+
+To better understand user interaction as external events, the calculator can modeled as a machine with states and transitions between states when the user interacts with the calculator.
+
+| Current State | Input | Next State | Output |
+| ------------- | ----- | ---------- | ------ |
+| Enter operand | Digit | Enter Operand | Add digit to number
+| Enter operand | `Fn` + `F9`  | Enter Operand | Negate number
+| Enter operand | `.` | Enter Operand | Add decimal point
+| Enter operand | `Delete`, `Esc`, `Backspace` | Enter Operand | Clear display |
+| Enter operand | Operator | Enter Operator | None
+| Enter operand | `Enter`, `=` | Perform Operation | Display curent number
+| Enter operator | Digit | Enter Operand | Clear display and add digit
+| Enter operator | `Fn` + `F9` | Enter Operand | Negate number
+| Enter operator | `.` | Enter Operand | Clear display and add decimal point
+| Enter operator | `Delete`, `Backspace`, `Esc` | Enter Operand | Clear display
+| Enter operator | Operator | Enter Operator | None
+| Enter operator | `Enter`, `=` | Perform Operation | Display result of calculation
+| Perform Operation | Digit | Enter Operand | Clear display and add digit
+| Perform Operation | `Fn` + `F9` | Enter Operand | Negate number
+| Perform Operation | `.` | Enter Operand | Clear display and add decimal point
+| Perform Operation | `Delete`, `Esc`, `Backspace` | Enter Operand | Clear display
+| Perform Operation | Operator | Enter operator | None
+| Perform Operation | `Enter`, `=` | Perform Operation | Display result of calculation
+| Error | Digit | Enter Operand | Clear display and add digit
+| Error | `Delete`, `Esc`, `Backspace` | Enter Operand | Clear display
+| Error | Operator | Error | None
+| Error | `Fn` + `F9` | Error | None
+| Error | `.` | Error| None
+
+- The calculator allows the user to enter numbers for the operand.
+  - The user selects an operation.
+-
+- The calaculator performs the calaculation.
+-
+
+*For more information about state diagrams, click [here](https://en.wikipedia.org/wiki/State_diagram).*
 
 ```mermaid
 stateDiagram-v2
