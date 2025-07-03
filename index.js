@@ -471,8 +471,8 @@ function shiftKeyPressed(event) {
 
 function operatorKeyPressed(event) {
     return shiftKeyPressed(event) && event.key === PLUS_SIGN ||
+        shiftKeyPressed(event) && event.key === ASTERISK ||
         event.key === HYPHEN_MINUS ||
-        event.key === ASTERISK ||
         event.key === FORWARD_SLASH;
 }
 
