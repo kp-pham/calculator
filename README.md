@@ -26,7 +26,7 @@ This project submission is based on the standard mode of the Windows Calculator 
 
 ### Background
 
-> Make sure that your calculator only runs an operation when supplied with two numbers and an operator by the user. Example: you enter a number (2), followed by an operator button (+). You press the operator button (+) a second consecutive time. Your calculator should not evaluate this as (2 + 2) and should not display the result (4). If consecutive operator buttons are pressed, your calculator should not run any evaluations, it should only take the last operator entered to be used for the next operation.
+> Make sure that your calculator only runs an operation when supplied with two numbers and an operator by the user. Example: you enter a number (2), followed by an operator button (+). You press the operator button (+) a second consecutive time. Your calculator should not evaluate this as (2 + 2) and should not display the result (4). If consecutive operator buttons are pressed, your calculator should not run any evaluations, it should only take the last operator entered to be used for the next operation. 
 
 When we write functions, we look for blocks of code which are repeated throughout our program and give them a descriptive and informative name with which we can call those blocks of code wherever and whenever in our program. Choosing names for our functions is a conscious decision because the names of functions should convey the purpose of the function and the outcome from calling the function. We write functions to solve problems with recurring patterns instead of repeating the same code and abstract away the details of the implementation when the function performs the intended operations and produces the expected outcome every single time when we call the function.
 
@@ -76,9 +76,10 @@ To better understand user interaction as external events, the calculator can mod
 | Perform Operation | `Enter`, `=` | Perform Operation | Display result of calculation
 | Error | Digit | Enter Operand | Clear display and add digit
 | Error | `Delete`, `Esc`, `Backspace` | Enter Operand | Clear display
+| Error | `Enter`, `=` | Enter Operand | Clear display
 | Error | Operator | Error | None
 | Error | `Fn` + `F9` | Error | None
-| Error | `.` | Error| None
+| Error | `.` | Error | None
 
 The states of the calculator can be represented as composite states in a state diagram to better represent the states of the internal implementation of the calculator.
 
@@ -184,6 +185,7 @@ stateDiagram-v2
   }
 
   Perform --> Operand
+  Perform --> Operator
   Perform --> Error
 
   state Error {
@@ -199,3 +201,27 @@ stateDiagram-v2
 ```
 
 To implement the calculator as a finite state machine, the observation of an external event is the precondition of the function, the state the calculator transitions to is the postcondition of the function, and updates to the display of the calculator are the side effects of the function. Because functions are developed with preconditions and postconditions in mind and perform the intended operations and produce the expected outcome, functions are used to implement the transitions between states.
+
+Taking the problem of clearing the display when an operator is selected to enter digits for the other operand, the problem can modeled with a state diagram because the essence of the problem is a transition between the state in which the user is entering an operator and the state in which the user is entering digits for the second operand.
+
+```mermaid
+
+stateDiagram-v2
+
+Operand: Enter Operand
+Operator: Enter Operator
+Perform: Perform operation
+
+Perform --> Operator
+Operator --> Operand
+Operator --> Perform
+Operator --> Operator
+
+Operand --> Operator
+Operand --> Perform
+
+```
+
+The calculator remains in the state in which the user enters an operator when the user has entered the digits for the first operand and selected an operator but has not entered the digits for the second operand because the calculator remembers the operator which was last entered when performing the calculation for the user to change the operator before entering the digits for the second operand. To implement the transition, the precondition of the function is that the calculator has stored the first operand, the postcondition is that the calculator stores the operator which was last entered, and the side effect is that the display is cleared and updated to the digit which was entered.
+
+To represent the change in state, the flag ```clearNextPress``` is used to indicate whether the next button press clears the display for the user to enter digits for the other operand. The flag stores a Boolean value which coresponds to a transition when the value is ```true``` and no transition when the value is ```false```. The value is set to ```true``` when the user has entered the digits for the first operand and selects one of the operators. The value is set to ```false``` when the user enters a digit for the second operand which triggers clearing and updating the display.
