@@ -51,6 +51,9 @@ The programming paradigm of event-driven programming is a suitable approach for 
 
 To better understand user interaction as external events, the calculator can modeled as a machine with states and transitions between states when the user interacts with the calculator.
 
+- The state of the machine refers to the behavior of the machine under a set of conditions.
+- The transition between states refers to the change in the behavior of the machine when another set of conditions are fulfilled.
+
 | Current State | Input | Next State | Output |
 | ------------- | ----- | ---------- | ------ |
 | Enter operand | Digit | Enter Operand | Add digit to number
@@ -77,11 +80,7 @@ To better understand user interaction as external events, the calculator can mod
 | Error | `Fn` + `F9` | Error | None
 | Error | `.` | Error| None
 
-- The calculator allows the user to enter numbers for the operand.
-  - The user selects an operation.
--
-- The calaculator performs the calaculation.
--
+The states of the calculator can be represented as composite states in a state diagram to better represent the states of the internal implementation of the calculator.
 
 *For more information about state diagrams, click [here](https://en.wikipedia.org/wiki/State_diagram).*
 
@@ -198,3 +197,5 @@ stateDiagram-v2
 
   Error --> Operand
 ```
+
+To implement the calculator as a finite state machine, the observation of an external event is the precondition of the function, the state the calculator transitions to is the postcondition of the function, and updates to the display of the calculator are the side effects of the function. Because functions are developed with preconditions and postconditions in mind and perform the intended operations and produce the expected outcome, functions are used to implement the transitions between states.
