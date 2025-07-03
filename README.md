@@ -16,7 +16,7 @@ For more information about keyboard shortcuts for the Windows Calculator for Win
 | `-` | Subtraction
 | `Shift` + `*` | Multiplication
 | `/` | Division
-| `Enter` | Perform alculation
+| `Enter` or `=` | Perform calculation
 | `Fn` + `F9` | Negate number
 | `.` | Convert to decimal
 
