@@ -25,6 +25,9 @@ This project submission is based on the standard mode of the Windows Calculator 
 *For more information about finite state machines, click [here](https://en.wikipedia.org/wiki/Finite-state_machine).* <br>
 *For more information about state diagrams, click [here](https://en.wikipedia.org/wiki/State_diagram).*
 
+Please see this [Reddit post](https://www.reddit.com/r/learnprogramming/comments/vkm9cr/how_to_clear_a_first_number_from_a_calculators/) which inspired me to learn about finite state machines and state diagrams when I encountered a problem with clearing the display when an operator is selected to enter digits for the other operand. Thank you to [u/bsakiag](https://www.reddit.com/user/bsakiag/) for their explanation and breakdown of the problem and [u/Fuegobruh](https://www.reddit.com/user/Fuegobruh/) for posting this question.
+
+
 
 ```mermaid
 stateDiagram-v2
