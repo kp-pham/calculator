@@ -278,7 +278,10 @@ function reachedDisplayLength() {
 }
 
 function enterOperation(symbol) {    
-    if (unevaluatedPair())
+    if (newOperation())
+        carryOver();
+
+    else if (unevaluatedPair())
         chainOperation();
 
     updateOperator(symbol);
