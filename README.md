@@ -18,4 +18,3 @@ This project submission is based on the standard mode of the Windows Calculator 
 | `Enter` or `=` | Perform calculation
 | `Fn` + `F9` | Negate number
 | `.` | Convert to decimal
-
