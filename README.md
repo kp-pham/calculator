@@ -18,3 +18,19 @@ This project submission is based on the standard mode of the Windows Calculator 
 | `Enter` or `=` | Perform calculation
 | `Fn` + `F9` | Negate number
 | `.` | Convert to decimal
+
+## Basic Arithmetic
+
+![Video demonstration of basic arithmetic operations.](./assets/basic-arithmetic.gif)
+
+## Divide by Zero Error
+
+![Video demonstration of divide by zero error.](./assets/divide-by-zero.gif)
+
+## Negation of Operands
+
+![Video demonstration of negating operands.](./assets/negation.gif)
+
+## Scientific Notation
+
+![Video demonstration of scientific notation for infinitesimally small values.](./assets/scientific-notation.gif)
