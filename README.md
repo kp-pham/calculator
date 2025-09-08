@@ -7,7 +7,7 @@ This project submission is based on the standard mode of the Windows Calculator 
 ## Keyboard Shortcuts
 *For more information about keyboard shortcuts for the Windows Calculator for Windows 11, click [here](https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-apps-139014e7-177b-d1f3-eb2e-7298b2599a34#bkmk_cal).*
 
-|        |        |
+| Press Key  | Action |
 | --- | --- |
 | `Delete` | Clear entry (CE) |
 | `Esc` | Clear (C) |
