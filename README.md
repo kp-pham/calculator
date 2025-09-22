@@ -4,6 +4,22 @@ The capstone project of the Foundations course is a calculator with basic operat
 
 This project submission is based on the standard mode of the Windows Calculator for Windows 11 with the design and functionality, keyboard shortcuts, and implementation of operations based on the actual application software. Modifications to the implementation of calculator were made to align with the scope of the project.
 
+## Installation
+
+Clone the repository:
+```bash
+git clone https://github.com/your-username/calculator.git
+```
+
+Change into the project directory:
+```bash
+cd calculator
+```
+
+Open the ```index.html``` file in your browser:
+- On Windows: Double click ```index.html```
+- On MacOS/Linux: Right click ```index.html``` and choose "Open With" > Your Browser
+
 ## Keyboard Shortcuts
 
 | Press Key  | Action |
